@@ -25,30 +25,85 @@ function deleteLast() {
 function calculateResult() {
     let display = document.getElementById('display');
     try {
-        display.value = eval(display.value);
-    } catch {
+        // Avalia a expressão primeiro
+        let result = eval(display.value);
+        
+        // Verifica se o resultado é infinito ou NaN
+        if (!isFinite(result)) {
+            throw new Error('Divisão por zero');
+        }
+        
+        // Verifica se o resultado é um número válido
+        if (isNaN(result)) {
+            throw new Error('Operação inválida');
+        }
+        
+        display.value = result;
+    } catch (error) {
         display.value = 'Erro';
     }
 }
 
 function percent() {
     let display = document.getElementById('display');
-    display.value = parseFloat(display.value) / 100;
+    try {
+        let value = parseFloat(display.value);
+        if (isNaN(value)) {
+            throw new Error('Valor inválido');
+        }
+        display.value = value / 100;
+    } catch (error) {
+        display.value = 'Erro';
+    }
 }
 
 function square() {
     let display = document.getElementById('display');
-    display.value = Math.pow(parseFloat(display.value), 2);
+    try {
+        let value = parseFloat(display.value);
+        if (isNaN(value)) {
+            throw new Error('Valor inválido');
+        }
+        let result = Math.pow(value, 2);
+        if (!isFinite(result)) {
+            throw new Error('Resultado muito grande');
+        }
+        display.value = result;
+    } catch (error) {
+        display.value = 'Erro';
+    }
 }
 
 function squareRoot() {
     let display = document.getElementById('display');
-    display.value = Math.sqrt(parseFloat(display.value));
+    try {
+        let value = parseFloat(display.value);
+        if (isNaN(value)) {
+            throw new Error('Valor inválido');
+        }
+        if (value < 0) {
+            throw new Error('Raiz de número negativo');
+        }
+        display.value = Math.sqrt(value);
+    } catch (error) {
+        display.value = 'Erro';
+    }
 }
 
 function fraction() {
     let display = document.getElementById('display');
-    display.value = 1 / parseFloat(display.value);
+    try {
+        let value = parseFloat(display.value);
+        if (isNaN(value)) {
+            throw new Error('Valor inválido');
+        }
+        if (value === 0) {
+            throw new Error('Divisão por zero');
+        }
+        display.value = 1 / value;
+    } catch (error) {
+        display.value = 'Erro';
+    }
 }
 
 function memoryClear() {
@@ -60,13 +115,37 @@ function memoryRecall() {
 }
 
 function memoryAdd() {
-    memory += parseFloat(document.getElementById('display').value);
+    try {
+        let value = parseFloat(document.getElementById('display').value);
+        if (isNaN(value)) {
+            throw new Error('Valor inválido');
+        }
+        memory += value;
+    } catch (error) {
+        document.getElementById('display').value = 'Erro';
+    }
 }
 
 function memorySubtract() {
-    memory -= parseFloat(document.getElementById('display').value);
+    try {
+        let value = parseFloat(document.getElementById('display').value);
+        if (isNaN(value)) {
+            throw new Error('Valor inválido');
+        }
+        memory -= value;
+    } catch (error) {
+        document.getElementById('display').value = 'Erro';
+    }
 }
 
 function memoryStore() {
-    memory = parseFloat(document.getElementById('display').value);
+    try {
+        let value = parseFloat(document.getElementById('display').value);
+        if (isNaN(value)) {
+            throw new Error('Valor inválido');
+        }
+        memory = value;
+    } catch (error) {
+        document.getElementById('display').value = 'Erro';
+    }
 }
